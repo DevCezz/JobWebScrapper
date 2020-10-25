@@ -6,10 +6,10 @@ public class WebScrapper {
 
     private final static String urlPage = "https://www.pracuj.pl/praca/%s;kw/%s;wp?rd=%d";
 
-    private final WebClient webClient;
+    private PortalStrategy portalStrategy;
 
-    public WebScrapper(WebClient webClient) {
-        this.webClient = webClient;
+    public WebScrapper(PortalStrategy portalStrategy) {
+        this.portalStrategy = portalStrategy;
     }
 
     public void search(SearchParams params) {
