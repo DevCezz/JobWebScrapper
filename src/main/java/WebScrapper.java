@@ -15,4 +15,12 @@ public class WebScrapper {
     public void enableCss() {
         webClient.getOptions().setCssEnabled(true);
     }
+
+    public void disableJavasript() {
+        webClient.getOptions().setJavaScriptEnabled(false);
+    }
+
+    public void enableJavasript() {
+        webClient.getOptions().setJavaScriptEnabled(true);
+    }
 }
