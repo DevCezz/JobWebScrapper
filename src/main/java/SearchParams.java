@@ -1,5 +1,7 @@
 public class SearchParams {
 
+    private static final int DEFAULT_KM_FAR = 30;
+
     public final String job;
     public final String city;
 
