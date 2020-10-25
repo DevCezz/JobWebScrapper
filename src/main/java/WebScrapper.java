@@ -2,6 +2,8 @@ import com.gargoylesoftware.htmlunit.WebClient;
 
 public class WebScrapper {
 
+    private final static String urlPage = "https://www.pracuj.pl/praca/%s;kw/%s;wp?rd=%d";
+
     private final WebClient webClient;
 
     public WebScrapper(WebClient webClient) {
