@@ -12,7 +12,7 @@ public class WebScrapper {
         this.portalStrategy = portalStrategy;
     }
 
-    public void search(SearchParams params) {
+    public void scrape(SearchParams params) {
         try {
             String urlWithParams = String.format(urlPage, params.job, params.city, params.kmFar);
             webClient.getPage(urlWithParams);
