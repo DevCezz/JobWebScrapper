@@ -1,5 +1,7 @@
 import com.gargoylesoftware.htmlunit.WebClient;
 
+import java.io.IOException;
+
 public class WebScrapper {
 
     private final static String urlPage = "https://www.pracuj.pl/praca/%s;kw/%s;wp?rd=%d";
@@ -8,6 +10,15 @@ public class WebScrapper {
 
     public WebScrapper(WebClient webClient) {
         this.webClient = webClient;
+    }
+
+    public void search(SearchParams params) {
+        try {
+            String urlWithParams = String.format(urlPage, params.job, params.city, params.kmFar);
+            webClient.getPage(urlWithParams);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void disableCss() {
