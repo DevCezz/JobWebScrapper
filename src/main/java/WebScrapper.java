@@ -17,7 +17,7 @@ public class WebScrapper {
             String urlWithParams = String.format(urlPage, params.job, params.city, params.kmFar);
             webClient.getPage(urlWithParams);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CannotReachPageException("Cannot connect to " + urlPage);
         }
     }
 
