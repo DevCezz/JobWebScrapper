@@ -11,9 +11,9 @@ public class WebScrapingClient {
         this.webClient = webClient;
     }
 
-    public void scrape(String url) {
+    public HtmlPage scrape(String url) {
         try {
-            HtmlPage page = webClient.getPage(url);
+            return webClient.getPage(url);
         } catch (IOException e) {
             throw new CannotReachPageException("Cannot connect to " + url);
         }
