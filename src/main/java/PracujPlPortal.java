@@ -1,6 +1,6 @@
 public class PracujPlPortal implements PortalStrategy {
 
-    private final static String urlPage = "https://www.pracuj.pl/praca/%s;kw/%s;wp?rd=%d";
+    private final static String URL_PAGE = "https://www.pracuj.pl/praca/%s;kw/%s;wp?rd=%d";
 
     private final WebScrapingClient client;
 
