@@ -1,3 +1,5 @@
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
 public class PracujPlPortal implements PortalStrategy {
 
     private final static String URL_PAGE = "https://www.pracuj.pl/praca/%s;kw/%s;wp?rd=%d";
@@ -12,6 +14,6 @@ public class PracujPlPortal implements PortalStrategy {
 
     @Override
     public void foo(SearchParams params) {
-
+        HtmlPage page = client.scrape(URL_PAGE);
     }
 }
