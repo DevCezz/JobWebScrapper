@@ -1,4 +1,6 @@
 public interface PortalStrategy {
 
-    void foo(SearchParams params);
+    String createPageUrl(SearchParams params);
+
+    String cssSelectorToLinkOffers();
 }
