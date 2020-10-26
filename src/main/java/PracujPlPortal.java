@@ -6,6 +6,8 @@ public class PracujPlPortal implements PortalStrategy {
 
     public PracujPlPortal(WebScrapingClient client) {
         this.client = client;
+        this.client.disableCss();
+        this.client.disableJs();
     }
 
     @Override
