@@ -1,11 +1,11 @@
-import com.gargoylesoftware.htmlunit.WebClient;
-
 public class PracujPlPortal implements PortalStrategy {
 
-    private final WebClient webClient;
+    private final static String urlPage = "https://www.pracuj.pl/praca/%s;kw/%s;wp?rd=%d";
 
-    public PracujPlPortal(WebClient webClient) {
-        this.webClient = webClient;
+    private final WebScrapingClient client;
+
+    public PracujPlPortal(WebScrapingClient client) {
+        this.client = client;
     }
 
     @Override
