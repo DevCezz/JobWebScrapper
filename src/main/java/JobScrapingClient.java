@@ -1,60 +1,57 @@
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import io.vavr.collection.List;
+import io.vavr.collection.Stream;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
-public class WebScrapingClient {
+public class JobScrapingClient {
 
-    private static final Logger LOGGER = Logger.getLogger( WebScrapingClient.class.getName() );
+    private static final Logger LOGGER = Logger.getLogger( JobScrapingClient.class.getName() );
 
     private final PortalStrategy portalStrategy;
 
-    public WebScrapingClient(PortalStrategy portalStrategy) {
+    public JobScrapingClient(PortalStrategy portalStrategy) {
         this.portalStrategy = portalStrategy;
     }
 
-    public List<JobPostion> scrape(SearchParams params) {
-        List<JobPostion> results = new ArrayList<>();
+    public List<JobPostion> scrapeForJobs(SearchParams params) {
         String url = portalStrategy.createPageUrl(params);
 
-        try (WebClient webClient = setUpNewWebClient()) {
-            HtmlPage page = webClient.getPage(url);
-            Document document = Jsoup.parse(page.asXml());
+        try (WebClient webClient = setUpWebClient()) {
+            HtmlPage htmlPage = webClient.getPage(url);
+            Document parsedDocument = Jsoup.parse(htmlPage.asXml());
 
-            Elements select = document.select(portalStrategy.cssSelectorToLinkOffers());
+            Elements linkOffersElements = parsedDocument.select(portalStrategy.cssSelectorToLinkOffers());
 
-            List<String> links = select.stream()
+            return Stream.ofAll(linkOffersElements)
                     .map(element -> element.attr("href"))
-                    .collect(Collectors.toList());
+                    .map(this::scrapeForJobPosition)
+                    .filter(Objects::nonNull)
+                    .toList();
 
-
-            for (String link : links) {
-
-                try (WebClient subWebClient = setUpNewWebClient()) {
-                    HtmlPage offerPage = subWebClient.getPage(link);
-
-                    JobPostion jobPostion = portalStrategy.assembleJobFrom(offerPage);
-
-                    results.add(jobPostion);
-                } catch (Exception ex) {
-                    LOGGER.warning("Cannot handle " + link);
-                }
-            }
         } catch (IOException e) {
             throw new CannotReachPageException("Cannot connect to " + url);
         }
-
-        return results;
     }
 
-    private WebClient setUpNewWebClient() {
+    private JobPostion scrapeForJobPosition(String link) {
+        try (WebClient subWebClient = setUpWebClient()) {
+            HtmlPage offerHtmlPage = subWebClient.getPage(link);
+
+            return portalStrategy.assembleJobFrom(offerHtmlPage);
+        } catch (Exception ex) {
+            LOGGER.warning("Cannot handle " + link);
+            return null;
+        }
+    }
+
+    private WebClient setUpWebClient() {
         WebClient webClient = new WebClient();
         webClient.getOptions().setThrowExceptionOnScriptError(false);
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
