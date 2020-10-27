@@ -1,13 +1,13 @@
-import java.util.List;
+import io.vavr.collection.List;
 
 public class WebScrapper {
 
     public static void main(String[] args) {
         PortalStrategy portalStrategy = new PracujPlPortal();
-        WebScrapingClient client = new WebScrapingClient(portalStrategy);
+        JobScrapingClient client = new JobScrapingClient(portalStrategy);
 
-        List<JobPostion> scrape = client.scrape(new SearchParams("Java", "Warszawa"));
+        List<JobPosition> jobPositions = client.scrapeForJobs(new SearchParams("Java", "Warszawa"));
 
-        scrape.forEach(System.out::println);
+        jobPositions.forEach(System.out::println);
     }
 }

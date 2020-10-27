@@ -1,4 +1,4 @@
-public class JobPostion {
+public class JobPosition {
 
     public final String link;
     public final String jobTitle;
@@ -10,42 +10,42 @@ public class JobPostion {
     public String schedule;
     public String employmentType;
 
-    private JobPostion(String link, String jobTitle, String employer) {
+    private JobPosition(String link, String jobTitle, String employer) {
         this.link = link;
         this.jobTitle = jobTitle;
         this.employer = employer;
     }
     
-    public static JobPostion of(String link, String jobTitle, String employer) {
-        return new JobPostion(link, jobTitle, employer);
+    public static JobPosition of(String link, String jobTitle, String employer) {
+        return new JobPosition(link, jobTitle, employer);
     }
 
-    public JobPostion addSalary(String salary) {
+    public JobPosition addSalary(String salary) {
         this.salary = salary;
         return this;
     }
 
-    public JobPostion addWorkplace(String workplace) {
+    public JobPosition addWorkplace(String workplace) {
         this.workplace = workplace;
         return this;
     }
 
-    public JobPostion addExpiration(String expiration) {
+    public JobPosition addExpiration(String expiration) {
         this.expiration = expiration;
         return this;
     }
 
-    public JobPostion addContract(String contract) {
+    public JobPosition addContract(String contract) {
         this.contract = contract;
         return this;
     }
 
-    public JobPostion addSchedule(String schedule) {
+    public JobPosition addSchedule(String schedule) {
         this.schedule = schedule;
         return this;
     }
 
-    public JobPostion addEmploymentType(String employmentType) {
+    public JobPosition addEmploymentType(String employmentType) {
         this.employmentType = employmentType;
         return this;
     }

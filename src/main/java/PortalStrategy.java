@@ -6,5 +6,5 @@ public interface PortalStrategy {
 
     String cssSelectorToLinkOffers();
 
-    JobPostion assembleJobFrom(HtmlPage page);
+    JobPosition assembleJobFrom(HtmlPage page);
 }

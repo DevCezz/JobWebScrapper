@@ -20,7 +20,7 @@ public class JobScrapingClient {
         this.portalStrategy = portalStrategy;
     }
 
-    public List<JobPostion> scrapeForJobs(SearchParams params) {
+    public List<JobPosition> scrapeForJobs(SearchParams params) {
         String url = portalStrategy.createPageUrl(params);
 
         try (WebClient webClient = setUpWebClient()) {
@@ -40,7 +40,7 @@ public class JobScrapingClient {
         }
     }
 
-    private JobPostion scrapeForJobPosition(String link) {
+    private JobPosition scrapeForJobPosition(String link) {
         try (WebClient subWebClient = setUpWebClient()) {
             HtmlPage offerHtmlPage = subWebClient.getPage(link);
 

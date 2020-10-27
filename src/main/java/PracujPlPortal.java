@@ -29,7 +29,7 @@ public class PracujPlPortal implements PortalStrategy {
         return CSS_SELECTOR;
     }
 
-    public JobPostion assembleJobFrom(HtmlPage page) {
+    public JobPosition assembleJobFrom(HtmlPage page) {
 
         Document subDocument = Jsoup.parse(page.asXml());
 
@@ -44,7 +44,7 @@ public class PracujPlPortal implements PortalStrategy {
         Element scheduleElement = subDocument.selectFirst(QUERY_SCHEDULE_WORK);
         Element employmentTypeElement = subDocument.selectFirst(QUERY_EMPLOYMENT_TYPE);
 
-        return JobPostion.of(page.getUrl().toString(), jobNameElement.text(), employerNameElement.ownText())
+        return JobPosition.of(page.getUrl().toString(), jobNameElement.text(), employerNameElement.ownText())
                 .addSalary(salaryElement != null ? salaryElement.text() : "brak")
                 .addWorkplace(workplaceElement != null || workplaceRepElement != null ? (workplaceElement != null ? workplaceElement.text() : workplaceRepElement.text()) : "brak")
                 .addExpiration(expirationElements != null ? expirationElements.get(expirationElements.size() - 1).text() : "brak")
