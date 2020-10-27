@@ -1,13 +1,14 @@
-import com.gargoylesoftware.htmlunit.WebClient;
+import java.util.List;
 
 public class WebScrapper {
 
     public static void main(String[] args) {
-        WebClient webClient = new WebClient();
         PortalStrategy portalStrategy = new PracujPlPortal();
-        WebScrapingClient client = new WebScrapingClient(webClient, portalStrategy);
+        WebScrapingClient client = new WebScrapingClient(portalStrategy);
 
         client.turnOffLogs();
-        client.scrape(new SearchParams("Java", "Warszawa"));
+        List<JobPostion> scrape = client.scrape(new SearchParams("Java", "Warszawa"));
+
+        scrape.forEach(System.out::println);
     }
 }
