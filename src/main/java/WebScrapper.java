@@ -6,7 +6,6 @@ public class WebScrapper {
         PortalStrategy portalStrategy = new PracujPlPortal();
         WebScrapingClient client = new WebScrapingClient(portalStrategy);
 
-        client.turnOffLogs();
         List<JobPostion> scrape = client.scrape(new SearchParams("Java", "Warszawa"));
 
         scrape.forEach(System.out::println);
