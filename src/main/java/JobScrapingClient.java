@@ -2,6 +2,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import io.vavr.collection.List;
 import io.vavr.collection.Stream;
+import io.vavr.control.Option;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -27,16 +28,38 @@ public class JobScrapingClient {
             HtmlPage htmlPage = webClient.getPage(url);
             Document parsedDocument = Jsoup.parse(htmlPage.asXml());
 
-            Elements linkOffersElements = parsedDocument.select(portalStrategy.cssSelectorToLinkOffers());
+            Elements pageNums = parsedDocument.select(".pagination_element-page a");
+            Option<Integer> maxPageNum = Stream.ofAll(pageNums)
+                    .map(element -> Integer.parseInt(element.text()))
+                    .max();
+
+            Option<List<JobPosition>> jobPositions = maxPageNum.map(maxPage -> Stream.iterate(1, i -> i + 1)
+                    .take(maxPage)
+                    .map(numPage -> portalStrategy.createPageUrl(params, numPage))
+                    .map(this::scrapeSubPage)
+                    .flatMap(List::toStream)
+                    .toList());
+
+            return jobPositions.getOrElse(List.empty());
+
+        } catch (IOException e) {
+            throw new CannotReachPageException("Cannot connect to " + url);
+        }
+    }
+
+    private List<JobPosition> scrapeSubPage(String subUrl) {
+        try (WebClient subWebClient = setUpWebClient()) {
+            HtmlPage subHtmlPage = subWebClient.getPage(subUrl);
+            Document subParsedDocument = Jsoup.parse(subHtmlPage.asXml());
+            Elements linkOffersElements = subParsedDocument.select(portalStrategy.cssSelectorToLinkOffers());
 
             return Stream.ofAll(linkOffersElements)
                     .map(element -> element.attr("href"))
                     .map(this::scrapeForJobPosition)
                     .filter(Objects::nonNull)
                     .toList();
-
         } catch (IOException e) {
-            throw new CannotReachPageException("Cannot connect to " + url);
+            throw new CannotReachPageException("Cannot connect to " + subUrl);
         }
     }
 
