@@ -6,7 +6,7 @@ import org.jsoup.select.Elements;
 
 public class PracujPlPortal implements PortalStrategy {
 
-    private final static String URL_PAGE = "https://www.pracuj.pl/praca/%s;kw/%s;wp?rd=10";
+    private final static String URL_PAGE = "https://www.pracuj.pl/praca/%s;kw/%s;wp?rd=10&pn=%d";
     private final static String CSS_SELECTOR = "#results .offer-details__title-link";
 
     public static final String QUERY_JOB_TITLE = "h2[data-test='text-positionName']";
@@ -21,7 +21,12 @@ public class PracujPlPortal implements PortalStrategy {
 
     @Override
     public String createPageUrl(SearchParams params) {
-        return String.format(URL_PAGE, params.job, params.city);
+        return String.format(URL_PAGE, params.job, params.city, 1);
+    }
+
+    @Override
+    public String createPageUrl(SearchParams params, int pageNum) {
+        return String.format(URL_PAGE, params.job, params.city, pageNum);
     }
 
     @Override
