@@ -1,6 +1,5 @@
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import org.apache.commons.logging.LogFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -8,7 +7,6 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -62,11 +60,5 @@ public class WebScrapingClient {
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 
         return webClient;
-    }
-
-    public void turnOffLogs() {
-        LogFactory.getFactory().setAttribute("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
-        Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
-        Logger.getLogger("org.apache.commons.httpclient").setLevel(Level.OFF);
     }
 }
