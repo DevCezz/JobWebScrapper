@@ -90,7 +90,7 @@ public class JobPosition {
 
     @Override
     public String toString() {
-        return "JobResult{" +
+        return "JobPosition{" +
                 "link='" + link + '\'' +
                 ", jobTitle='" + jobTitle + '\'' +
                 ", employer='" + employer + '\'' +
@@ -99,7 +99,7 @@ public class JobPosition {
                 ", expiration='" + expiration + '\'' +
                 ", contract='" + contract + '\'' +
                 ", schedule='" + schedule + '\'' +
-                ", employment='" + employmentType + '\'' +
+                ", employmentType='" + employmentType + '\'' +
                 '}';
     }
 }
