@@ -21,12 +21,12 @@ public class PracaPlPortal implements PortalStrategy {
 
     @Override
     public String createPageUrl(SearchParams params) {
-        return String.format(URL_SEARCH, params.job, params.city, 1);
+        return String.format(URL_SEARCH, params.language, params.city, 1);
     }
 
     @Override
     public String createPageUrl(SearchParams params, int pageNum) {
-        return String.format(URL_SEARCH, params.job, params.city, pageNum);
+        return String.format(URL_SEARCH, params.language, params.city, pageNum);
     }
 
     @Override
