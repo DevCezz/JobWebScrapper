@@ -6,8 +6,10 @@ import org.jsoup.select.Elements;
 
 public class PracujPlPortal implements PortalStrategy {
 
-    private final static String URL_PAGE = "https://www.pracuj.pl/praca/%s;kw/%s;wp?rd=10&pn=%d";
-    private final static String CSS_SELECTOR = "#results .offer-details__title-link";
+    private final static String URL_PAGE = "https://www.pracuj.pl";
+    private final static String URL_SEARCH = URL_PAGE + "/praca/%s;kw/%s;wp?rd=10&pn=%d";
+    private static final String CSS_PAGINATION_SELECTOR = ".pagination_element-page";
+    private final static String CSS_ITEM_SELECTOR = "#results .offer-details__title-link";
 
     public static final String QUERY_JOB_TITLE = "h2[data-test='text-positionName']";
     public static final String QUERY_EMPLOYER = "h2[data-test='text-employerName']";
@@ -21,17 +23,22 @@ public class PracujPlPortal implements PortalStrategy {
 
     @Override
     public String createPageUrl(SearchParams params) {
-        return String.format(URL_PAGE, params.job, params.city, 1);
+        return String.format(URL_SEARCH, params.job, params.city, 1);
     }
 
     @Override
     public String createPageUrl(SearchParams params, int pageNum) {
-        return String.format(URL_PAGE, params.job, params.city, pageNum);
+        return String.format(URL_SEARCH, params.job, params.city, pageNum);
+    }
+
+    @Override
+    public String cssSelectorForPagination() {
+        return CSS_PAGINATION_SELECTOR;
     }
 
     @Override
     public String cssSelectorToLinkOffers() {
-        return CSS_SELECTOR;
+        return CSS_ITEM_SELECTOR;
     }
 
     public JobPosition assembleJobFrom(HtmlPage page) {
@@ -56,5 +63,10 @@ public class PracujPlPortal implements PortalStrategy {
                 .addContract(contractElement != null ? contractElement.text() : "brak")
                 .addSchedule(scheduleElement != null ? scheduleElement.text() : "brak")
                 .addEmploymentType(employmentTypeElement != null ? employmentTypeElement.text() : "brak");
+    }
+
+    @Override
+    public String createAbsolutePath(String path) {
+        return path.startsWith("/") ? URL_PAGE + path : path;
     }
 }
