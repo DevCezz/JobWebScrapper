@@ -11,13 +11,13 @@ import org.jsoup.nodes.Element;
 public class PracaPlPortal implements PortalStrategy {
 
     private static final String URL_PAGE = "https://www.praca.pl";
-    private final static String URL_SEARCH = URL_PAGE + "/s-%s,%s_%d.html";
+    private static final String URL_SEARCH = URL_PAGE + "/s-%s,%s_%d.html";
     private static final String CSS_PAGINATION_SELECTOR = ".pagination__item";
     private static final String CSS_ITEM_SELECTOR = ".listing__list .listing__item .listing__offer-title";
 
-    public static final String QUERY_JOB_TITLE = "p[class='app-offer__title']";
-    public static final String QUERY_EMPLOYER = "p[class='app-offer__employer']";
-    public static final String QUERY_WORKPLACE = "p[class='app-offer__location']";
+    private static final String QUERY_JOB_TITLE = "p[class='app-offer__title']";
+    private static final String QUERY_EMPLOYER = "p[class='app-offer__employer']";
+    private static final String QUERY_WORKPLACE = "p[class='app-offer__location']";
 
     @Override
     public String createPageUrl(SearchParams params) {

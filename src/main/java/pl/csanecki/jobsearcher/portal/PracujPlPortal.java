@@ -16,15 +16,15 @@ public class PracujPlPortal implements PortalStrategy {
     private static final String CSS_PAGINATION_SELECTOR = ".pagination_element-page";
     private final static String CSS_ITEM_SELECTOR = "#results .offer-details__title-link";
 
-    public static final String QUERY_JOB_TITLE = "h2[data-test='text-positionName']";
-    public static final String QUERY_EMPLOYER = "h2[data-test='text-employerName']";
-    public static final String QUERY_SALARY = "div[data-test='section-salary']";
-    public static final String QUERY_WORKPLACE_PRECISE = "div[data-test='sections-benefit-workplaces'] a[href='#map-frame']";
-    public static final String QUERY_WORKPLACE_ALTERNATIVE = "div[data-test='sections-benefit-workplaces'] p[data-test='text-benefit']";
-    public static final String QUERY_EXPIRATION_DATE = "div[data-test='sections-benefit-expiration'] div[data-test='text-benefit']";
-    public static final String QUERY_CONTRACT_INFO = "div[data-test='sections-benefit-contracts']";
-    public static final String QUERY_SCHEDULE_WORK = "div[data-test='sections-benefit-work-schedule']";
-    public static final String QUERY_EMPLOYMENT_TYPE = "div[data-test='sections-benefit-employment-type-name']";
+    private static final String QUERY_JOB_TITLE = "h2[data-test='text-positionName']";
+    private static final String QUERY_EMPLOYER = "h2[data-test='text-employerName']";
+    private static final String QUERY_SALARY = "div[data-test='section-salary']";
+    private static final String QUERY_WORKPLACE_PRECISE = "div[data-test='sections-benefit-workplaces'] a[href='#map-frame']";
+    private static final String QUERY_WORKPLACE_ALTERNATIVE = "div[data-test='sections-benefit-workplaces'] p[data-test='text-benefit']";
+    private static final String QUERY_EXPIRATION_DATE = "div[data-test='sections-benefit-expiration'] div[data-test='text-benefit']";
+    private static final String QUERY_CONTRACT_INFO = "div[data-test='sections-benefit-contracts']";
+    private static final String QUERY_SCHEDULE_WORK = "div[data-test='sections-benefit-work-schedule']";
+    private static final String QUERY_EMPLOYMENT_TYPE = "div[data-test='sections-benefit-employment-type-name']";
 
     @Override
     public String createPageUrl(SearchParams params) {
