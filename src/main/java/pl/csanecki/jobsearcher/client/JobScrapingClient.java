@@ -21,6 +21,8 @@ public class JobScrapingClient {
 
     private static final Logger LOGGER = Logger.getLogger( JobScrapingClient.class.getName() );
 
+    private static final String LINK_ATTRIBUTE = "href";
+
     private final PortalStrategy portalStrategy;
 
     public JobScrapingClient(PortalStrategy portalStrategy) {
@@ -62,7 +64,7 @@ public class JobScrapingClient {
             Elements linkOffersElements = subParsedDocument.select(portalStrategy.cssSelectorToLinkOffers());
 
             return Stream.ofAll(linkOffersElements)
-                    .map(element -> element.attr("href"))
+                    .map(element -> element.attr(LINK_ATTRIBUTE))
                     .map(portalStrategy::createAbsolutePath)
                     .map(this::scrapeForJobPosition)
                     .filter(Objects::nonNull)
