@@ -5,6 +5,7 @@ import io.vavr.collection.Stream;
 import io.vavr.control.Option;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -28,9 +29,11 @@ public class JobScrapingClient {
             HtmlPage htmlPage = webClient.getPage(url);
             Document parsedDocument = Jsoup.parse(htmlPage.asXml());
 
-            Elements pageNums = parsedDocument.select(".pagination_element-page a");
+            Elements pageNums = parsedDocument.select(portalStrategy.cssSelectorForPagination());
             Option<Integer> maxPageNum = Stream.ofAll(pageNums)
-                    .map(element -> Integer.parseInt(element.text()))
+                    .map(Element::text)
+                    .filter(this::isNumeric)
+                    .map(Integer::parseInt)
                     .max();
 
             Option<List<JobPosition>> jobPositions = maxPageNum.map(maxPage -> Stream.iterate(1, i -> i + 1)
@@ -55,6 +58,7 @@ public class JobScrapingClient {
 
             return Stream.ofAll(linkOffersElements)
                     .map(element -> element.attr("href"))
+                    .map(portalStrategy::createAbsolutePath)
                     .map(this::scrapeForJobPosition)
                     .filter(Objects::nonNull)
                     .toList();
@@ -80,5 +84,19 @@ public class JobScrapingClient {
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 
         return webClient;
+    }
+
+    private boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+
+        try {
+            Integer.parseInt(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+
+        return true;
     }
 }
