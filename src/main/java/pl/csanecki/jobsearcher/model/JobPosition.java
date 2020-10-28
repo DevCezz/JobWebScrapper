@@ -1,14 +1,16 @@
+package pl.csanecki.jobsearcher.model;
+
 public class JobPosition {
 
-    public final String link;
-    public final String jobTitle;
-    public final String employer;
-    public String salary;
-    public String workplace;
-    public String expiration;
-    public String contract;
-    public String schedule;
-    public String employmentType;
+    private final String link;
+    private final String jobTitle;
+    private final String employer;
+    private String salary;
+    private String workplace;
+    private String expiration;
+    private String contract;
+    private String schedule;
+    private String employmentType;
 
     private JobPosition(String link, String jobTitle, String employer) {
         this.link = link;
@@ -48,6 +50,42 @@ public class JobPosition {
     public JobPosition addEmploymentType(String employmentType) {
         this.employmentType = employmentType;
         return this;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public String getEmployer() {
+        return employer;
+    }
+
+    public String getSalary() {
+        return salary;
+    }
+
+    public String getWorkplace() {
+        return workplace;
+    }
+
+    public String getExpiration() {
+        return expiration;
+    }
+
+    public String getContract() {
+        return contract;
+    }
+
+    public String getSchedule() {
+        return schedule;
+    }
+
+    public String getEmploymentType() {
+        return employmentType;
     }
 
     @Override

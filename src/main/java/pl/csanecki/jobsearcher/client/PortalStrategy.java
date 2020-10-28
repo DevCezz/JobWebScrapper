@@ -1,4 +1,8 @@
+package pl.csanecki.jobsearcher.client;
+
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import pl.csanecki.jobsearcher.model.JobPosition;
+import pl.csanecki.jobsearcher.model.SearchParams;
 
 public interface PortalStrategy {
 

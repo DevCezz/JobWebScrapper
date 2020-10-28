@@ -1,3 +1,5 @@
+package pl.csanecki.jobsearcher.model;
+
 public class SearchParams {
 
     public final String job;

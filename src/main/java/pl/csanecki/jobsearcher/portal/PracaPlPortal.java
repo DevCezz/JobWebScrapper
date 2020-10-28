@@ -1,4 +1,9 @@
+package pl.csanecki.jobsearcher.portal;
+
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import pl.csanecki.jobsearcher.client.PortalStrategy;
+import pl.csanecki.jobsearcher.model.JobPosition;
+import pl.csanecki.jobsearcher.model.SearchParams;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

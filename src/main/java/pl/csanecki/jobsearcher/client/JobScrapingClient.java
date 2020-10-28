@@ -1,8 +1,13 @@
+package pl.csanecki.jobsearcher.client;
+
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import pl.csanecki.jobsearcher.exception.CannotReachPageException;
 import io.vavr.collection.List;
 import io.vavr.collection.Stream;
 import io.vavr.control.Option;
+import pl.csanecki.jobsearcher.model.JobPosition;
+import pl.csanecki.jobsearcher.model.SearchParams;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
